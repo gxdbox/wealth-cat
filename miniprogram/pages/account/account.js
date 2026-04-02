@@ -60,6 +60,13 @@ Page({
     }
   },
 
+  // 跳转到语音记账
+  goVoiceRecord: function() {
+    wx.navigateTo({
+      url: '/pages/voiceRecord/voiceRecord'
+    })
+  },
+
   // 选择类型
   selectType: function(e) {
     const { type } = e.currentTarget.dataset

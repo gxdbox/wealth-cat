@@ -1,4 +1,11 @@
 <view class="container">
+  <!-- 语音记账入口 -->
+  <view class="voice-entry" bindtap="goVoiceRecord">
+    <text class="voice-icon">🎙️</text>
+    <text class="voice-text">语音记账</text>
+    <text class="voice-hint">一句话快速记账</text>
+  </view>
+
   <!-- 类型选择 -->
   <view class="type-selector">
     <view class="type-btn {{type === 'expense' ? 'active' : ''}}" bindtap="selectType" data-type="expense">

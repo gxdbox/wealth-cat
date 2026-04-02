@@ -4,6 +4,34 @@
   min-height: 100vh;
 }
 
+/* 语音入口 */
+.voice-entry {
+  background: linear-gradient(135deg, #07c160 0%, #10b981 100%);
+  border-radius: 20rpx;
+  padding: 40rpx 30rpx;
+  display: flex;
+  align-items: center;
+  margin-bottom: 30rpx;
+  box-shadow: 0 8rpx 20rpx rgba(7, 193, 96, 0.3);
+}
+
+.voice-icon {
+  font-size: 60rpx;
+  margin-right: 20rpx;
+}
+
+.voice-text {
+  font-size: 36rpx;
+  font-weight: bold;
+  color: #fff;
+  margin-right: 20rpx;
+}
+
+.voice-hint {
+  font-size: 26rpx;
+  color: rgba(255, 255, 255, 0.8);
+}
+
 /* 类型选择 */
 .type-selector {
   display: flex;

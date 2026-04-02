@@ -1,0 +1,37 @@
+<view class="container">
+  <!-- 语音输入区域 -->
+  <view class="voice-section">
+    <view class="voice-icon">{{isRecording ? '🎤' : '🎙️'}}</view>
+    <text class="voice-status">{{isRecording ? '正在录音...' : '点击按钮开始说话'}}</text>
+    <text class="voice-hint">例："今天早上买咖啡花了 35 元"</text>
+  </view>
+
+  <!-- 录音按钮 -->
+  <view class="record-btn-box">
+    <view class="record-btn {{isRecording ? 'recording' : ''}}" bindtouchstart="startRecord" bindtouchend="stopRecord">
+      <text class="btn-icon">{{isRecording ? '' : ''}}</text>
+      <text class="btn-text">{{isRecording ? '松开结束' : '按住说话'}}</text>
+    </view>
+  </view>
+
+  <!-- 识别结果 -->
+  <view wx:if="{{recognizeResult}}" class="result-section">
+    <view class="result-title">识别结果</view>
+    <view class="result-content">{{recognizeResult}}</view>
+  </view>
+
+  <!-- 手动输入备用 -->
+  <view class="manual-section">
+    <text class="manual-title">或者手动输入</text>
+    <textarea class="manual-input" value="{{manualText}}" bindinput="onManualInput" placeholder="请输入消费内容..." maxlength="200" />
+    <button class="submit-btn" bindtap="submitManual">提交</button>
+  </view>
+
+  <!-- 加载状态 -->
+  <view wx:if="{{loading}}" class="loading-mask">
+    <view class="loading-content">
+      <text class="loading-icon">🤖</text>
+      <text class="loading-text">AI 正在分析...</text>
+    </view>
+  </view>
+</view>

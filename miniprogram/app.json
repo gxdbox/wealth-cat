@@ -1,6 +1,7 @@
 {
   "pages": [
     "pages/account/account",
+    "pages/voiceRecord/voiceRecord",
     "pages/recordList/recordList",
     "pages/aiChat/aiChat",
     "pages/family/family",
