@@ -1,0 +1,88 @@
+<view class="container">
+  <!-- 未加入家庭 -->
+  <view wx:if="{{!hasFamily}}" class="empty-state">
+    <text class="empty-icon">🏠</text>
+    <text class="empty-text">创建一个家庭账本，与家人共享记账</text>
+    
+    <view class="input-section">
+      <input class="input-box" value="{{familyName}}" bindinput="onInputName" placeholder="输入家庭名称，如：幸福之家" />
+    </view>
+    
+    <button class="create-btn" bindtap="createFamily">创建家庭</button>
+    
+    <view class="divider">或</view>
+    
+    <view class="input-section">
+      <input class="input-box" value="{{joinFamilyId}}" bindinput="onInputJoinId" placeholder="输入家庭 ID 加入" />
+    </view>
+    
+    <button class="join-btn" bindtap="joinFamily">加入家庭</button>
+  </view>
+
+  <!-- 已加入家庭 -->
+  <block wx:if="{{hasFamily}}">
+    <!-- 家庭信息卡片 -->
+    <view class="family-card">
+      <view class="family-name">{{family.familyName}}</view>
+      <view class="family-id">家庭 ID: {{family.familyId}}</view>
+      <view class="family-members">成员数：{{family.memberCount}}人</view>
+      <button class="copy-btn" bindtap="copyFamilyId">复制家庭 ID</button>
+    </view>
+
+    <!-- 统计信息 -->
+    <view class="stats-section">
+      <view class="section-title">家庭统计</view>
+      <view class="stats-grid">
+        <view class="stat-card">
+          <text class="stat-value">￥{{stats.totalExpense}}</text>
+          <text class="stat-label">总支出</text>
+        </view>
+        <view class="stat-card">
+          <text class="stat-value">￥{{stats.totalIncome}}</text>
+          <text class="stat-label">总收入</text>
+        </view>
+        <view class="stat-card">
+          <text class="stat-value">￥{{stats.balance}}</text>
+          <text class="stat-label">结余</text>
+        </view>
+        <view class="stat-card">
+          <text class="stat-value">{{stats.recordCount}}</text>
+          <text class="stat-label">记账笔数</text>
+        </view>
+      </view>
+    </view>
+
+    <!-- 家庭成员 -->
+    <view class="members-section">
+      <view class="section-title">家庭成员</view>
+      <view wx:for="{{members}}" wx:key="openid" class="member-item">
+        <view class="member-avatar">{{member.nickname[0]}}</view>
+        <view class="member-info">
+          <text class="member-name">{{member.nickname}}</text>
+          <text class="member-role">{{member.role === 'admin' ? '管理员' : '成员'}}</text>
+        </view>
+        <view wx:if="{{userRole === 'admin' && member.role !== 'admin' && member.openid !== openid}}" class="remove-btn" bindtap="removeMember" data-openid="{{member.openid}}">移除</view>
+      </view>
+    </view>
+
+    <!-- 家庭账单 -->
+    <view class="records-section">
+      <view class="section-title">家庭账单</view>
+      <view wx:for="{{records}}" wx:key="_id" class="record-item">
+        <view class="record-info">
+          <text class="record-note">{{item.note || '无备注'}}</text>
+          <text class="record-user">- {{item.nickname}}</text>
+        </view>
+        <view class="record-amount {{item.type === 'expense' ? 'expense' : 'income'}}">
+          {{item.type === 'expense' ? '-' : '+'}}￥{{item.amount}}
+        </view>
+      </view>
+    </view>
+
+    <!-- 退出家庭 -->
+    <view class="leave-section">
+      <button wx:if="{{userRole !== 'admin'}}" class="leave-btn" bindtap="leaveFamily">退出家庭</button>
+      <button wx:if="{{userRole === 'admin'}}" class="dismiss-btn" bindtap="dismissFamily">解散家庭</button>
+    </view>
+  </block>
+</view>

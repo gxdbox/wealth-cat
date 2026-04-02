@@ -1,0 +1,47 @@
+<view class="container">
+  <!-- 欢迎卡片 -->
+  <view wx:if="{{messages.length === 0}}" class="welcome-card">
+    <text class="welcome-icon">🤖</text>
+    <text class="welcome-title">AI 记账助手</text>
+    <text class="welcome-desc">我可以帮你分析消费、提供理财建议</text>
+    
+    <view class="quick-questions">
+      <view class="question-chip" bindtap="sendQuickQuestion" data-question="我这个月总共花了多少钱？">💰 这个月花了多少钱？</view>
+      <view class="question-chip" bindtap="sendQuickQuestion" data-question="帮我分析一下我的消费习惯">📊 分析消费习惯</view>
+      <view class="question-chip" bindtap="sendQuickQuestion" data-question="我哪类支出最多？">🏷️ 哪类支出最多？</view>
+      <view class="question-chip" bindtap="sendQuickQuestion" data-question="给我一些省钱建议">💡 省钱建议</view>
+    </view>
+  </view>
+
+  <!-- 聊天记录 -->
+  <scroll-view class="chat-container" scroll-y="true" scroll-into-view="{{scrollToView}}" scroll-with-animation="true">
+    <view wx:for="{{messages}}" wx:key="id" class="message-item {{item.role}}">
+      <view class="message-avatar">{{item.role === 'user' ? '👤' : '🤖'}}</view>
+      <view class="message-content">
+        <text class="message-text">{{item.content}}</text>
+        <text class="message-time">{{item.time}}</text>
+      </view>
+    </view>
+    
+    <!-- 加载中 -->
+    <view wx:if="{{loading}}" class="message-item ai">
+      <view class="message-avatar">🤖</view>
+      <view class="message-content">
+        <view class="typing-indicator">
+          <text>AI</text>
+          <text class="dot">.</text>
+          <text class="dot">.</text>
+          <text class="dot">.</text>
+        </view>
+      </view>
+    </view>
+  </scroll-view>
+
+  <!-- 输入框 -->
+  <view class="input-bar">
+    <input class="input-box" value="{{inputValue}}" bindinput="onInput" bindconfirm="sendMessage" placeholder="问点什么吧，比如：我这个月花了多少钱？" />
+    <view class="send-btn" bindtap="sendMessage">
+      <text>发送</text>
+    </view>
+  </view>
+</view>

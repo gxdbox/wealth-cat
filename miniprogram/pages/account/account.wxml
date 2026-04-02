@@ -1,0 +1,68 @@
+<view class="container">
+  <!-- 类型选择 -->
+  <view class="type-selector">
+    <view class="type-btn {{type === 'expense' ? 'active' : ''}}" bindtap="selectType" data-type="expense">
+      支出
+    </view>
+    <view class="type-btn {{type === 'income' ? 'active' : ''}}" bindtap="selectType" data-type="income">
+      收入
+    </view>
+  </view>
+
+  <!-- 金额输入 -->
+  <view class="amount-section">
+    <text class="amount-label">￥</text>
+    <input class="amount-input" type="digit" value="{{amount}}" bindinput="onInputAmount" placeholder="0.00" />
+  </view>
+
+  <!-- 备注输入 -->
+  <view class="input-section">
+    <text class="input-label">备注</text>
+    <input class="input-box" value="{{note}}" bindinput="onInputNote" placeholder="例如：早餐、交通等" />
+  </view>
+
+  <!-- 分类选择 -->
+  <view class="input-section">
+    <text class="input-label">分类</text>
+    <view class="category-grid">
+      <view wx:for="{{expenseCategories}}" wx:key="name" 
+            class="category-item {{category === item.id ? 'active' : ''}}"
+            bindtap="selectCategory" data-id="{{item.id}}">
+        <text class="category-icon">{{item.icon}}</text>
+        <text class="category-name">{{item.name}}</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 日期选择 -->
+  <view class="input-section">
+    <text class="input-label">日期</text>
+    <picker mode="date" value="{{date}}" bindchange="onDateChange">
+      <view class="picker-box">
+        <text>{{date}}</text>
+        <text class="arrow">›</text>
+      </view>
+    </picker>
+  </view>
+
+  <!-- 提醒开关 -->
+  <view class="input-section">
+    <text class="input-label">记账提醒</text>
+    <view class="switch-box">
+      <text class="switch-text">开启每日记账提醒</text>
+      <switch checked="{{remindEnabled}}" bindchange="toggleRemind" color="#07c160" />
+    </view>
+  </view>
+
+  <!-- 家庭账本开关 -->
+  <view wx:if="{{hasFamily}}" class="input-section">
+    <text class="input-label">保存到家庭账本</text>
+    <view class="switch-box">
+      <text class="switch-text">计入家庭共同账本</text>
+      <switch checked="{{saveToFamily}}" bindchange="toggleFamily" color="#07c160" />
+    </view>
+  </view>
+
+  <!-- 提交按钮 -->
+  <button class="submit-btn" bindtap="submitRecord">记一笔</button>
+</view>

@@ -1,0 +1,66 @@
+<view class="container">
+  <!-- 用户信息卡片 -->
+  <view class="user-card">
+    <view class="avatar-box">
+      <image wx:if="{{userInfo}}" class="avatar" src="{{userInfo.avatarUrl}}" mode="aspectFill" />
+      <view wx:else class="avatar-default">我</view>
+    </view>
+    
+    <view class="user-info">
+      <text class="nickname">{{userInfo.nickName || '点击登录'}}</text>
+      <text class="openid">{{openid || '未登录'}}</text>
+    </view>
+  </view>
+
+  <!-- 登录按钮 -->
+  <view wx:if="{{!openid}}" class="login-section">
+    <button class="login-btn" bindtap="getUserProfile">微信登录</button>
+  </view>
+
+  <!-- 统计信息 -->
+  <view wx:if="{{openid}}" class="stats-section">
+    <view class="section-title">我的统计</view>
+    <view class="stats-grid">
+      <view class="stat-card">
+        <text class="stat-value">￥{{stats.totalExpense}}</text>
+        <text class="stat-label">总支出</text>
+      </view>
+      <view class="stat-card">
+        <text class="stat-value">￥{{stats.totalIncome}}</text>
+        <text class="stat-label">总收入</text>
+      </view>
+      <view class="stat-card">
+        <text class="stat-value">￥{{stats.balance}}</text>
+        <text class="stat-label">结余</text>
+      </view>
+      <view class="stat-card">
+        <text class="stat-value">{{stats.recordCount}}</text>
+        <text class="stat-label">记账笔数</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 功能列表 -->
+  <view wx:if="{{openid}}" class="menu-section">
+    <view class="menu-item" bindtap="refreshStats">
+      <text class="menu-icon">🔄</text>
+      <text class="menu-text">刷新统计</text>
+      <text class="menu-arrow">›</text>
+    </view>
+    <view class="menu-item" bindtap="goRecordList">
+      <text class="menu-icon">📊</text>
+      <text class="menu-text">账单明细</text>
+      <text class="menu-arrow">›</text>
+    </view>
+    <view class="menu-item" bindtap="goAccount">
+      <text class="menu-icon">📝</text>
+      <text class="menu-text">记一笔</text>
+      <text class="menu-arrow">›</text>
+    </view>
+  </view>
+
+  <!-- 退出登录 -->
+  <view wx:if="{{openid}}" class="logout-section">
+    <button class="logout-btn" bindtap="logout">退出登录</button>
+  </view>
+</view>

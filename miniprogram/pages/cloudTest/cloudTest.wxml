@@ -1,0 +1,44 @@
+<view class="container">
+  <view class="title">云开发练习</view>
+  
+  <!-- 云函数测试 -->
+  <view class="section">
+    <view class="section-title">☁️ 云函数测试</view>
+    <view class="input-box">
+      <input class="input" placeholder="输入城市：beijing/shanghai/guangzhou/shenzhen" value="{{city}}" bindinput="onInputCity" />
+    </view>
+    <button class="btn" type="primary" bindtap="getWeather">查询天气</button>
+    <view wx:if="{{weather}}" class="result">
+      <text>{{weather.city}}: {{weather.temperature}}°C - {{weather.condition}}</text>
+      <text class="time">{{weather.time}}</text>
+    </view>
+  </view>
+  
+  <!-- 数据库测试 -->
+  <view class="section">
+    <view class="section-title">📊 云数据库测试</view>
+    <view class="input-box">
+      <input class="input" placeholder="输入待办事项" value="{{todoInput}}" bindinput="onInputTodo" />
+    </view>
+    <button class="btn" type="primary" bindtap="addTodo">添加待办</button>
+    <button class="btn" bindtap="getTodos">查询待办</button>
+    
+    <view wx:if="{{todos.length > 0}}" class="todo-list">
+      <view wx:for="{{todos}}" wx:key="_id" class="todo-item">
+        <text wx:if="{{item.done}}" class="todo-done">{{item.title}}</text>
+        <text wx:else>{{item.title}}</text>
+        <button class="small-btn" bindtap="toggleTodo" data-id="{{item._id}}" data-done="{{item.done}}">
+          {{item.done ? '未完成' : '完成'}}
+        </button>
+        <button class="small-btn delete" bindtap="deleteTodo" data-id="{{item._id}}">删除</button>
+      </view>
+    </view>
+  </view>
+  
+  <!-- 云存储测试 -->
+  <view class="section">
+    <view class="section-title">📁 云存储测试</view>
+    <button class="btn" type="primary" bindtap="uploadImage">上传图片</button>
+    <image wx:if="{{imageUrl}}" src="{{imageUrl}}" mode="widthFix" class="upload-image" />
+  </view>
+</view>

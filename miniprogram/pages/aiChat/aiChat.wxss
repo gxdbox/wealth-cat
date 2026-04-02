@@ -1,0 +1,156 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  background: #f5f5f5;
+}
+
+/* 欢迎卡片 */
+.welcome-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 80rpx 40rpx 40rpx;
+  background: linear-gradient(135deg, #07c160 0%, #10b981 100%);
+  border-radius: 0 0 40rpx 40rpx;
+  color: #fff;
+}
+
+.welcome-icon {
+  font-size: 100rpx;
+  margin-bottom: 20rpx;
+}
+
+.welcome-title {
+  font-size: 40rpx;
+  font-weight: bold;
+  margin-bottom: 10rpx;
+}
+
+.welcome-desc {
+  font-size: 28rpx;
+  opacity: 0.9;
+  margin-bottom: 40rpx;
+}
+
+/* 快捷问题 */
+.quick-questions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 16rpx;
+  width: 100%;
+}
+
+.question-chip {
+  background: rgba(255, 255, 255, 0.2);
+  padding: 16rpx 24rpx;
+  border-radius: 50rpx;
+  font-size: 26rpx;
+  color: #fff;
+}
+
+/* 聊天容器 */
+.chat-container {
+  flex: 1;
+  padding: 30rpx;
+}
+
+.message-item {
+  display: flex;
+  align-items: flex-start;
+  margin-bottom: 30rpx;
+}
+
+.message-item.user {
+  flex-direction: row-reverse;
+}
+
+.message-avatar {
+  font-size: 48rpx;
+  margin: 0 16rpx;
+}
+
+.message-content {
+  max-width: 600rpx;
+  background: #fff;
+  padding: 24rpx;
+  border-radius: 16rpx;
+  box-shadow: 0 2rpx 10rpx rgba(0, 0, 0, 0.05);
+}
+
+.message-item.user .message-content {
+  background: #07c160;
+  color: #fff;
+}
+
+.message-text {
+  display: block;
+  font-size: 30rpx;
+  line-height: 1.6;
+  margin-bottom: 8rpx;
+}
+
+.message-time {
+  display: block;
+  font-size: 22rpx;
+  opacity: 0.6;
+  text-align: right;
+}
+
+/* 打字动画 */
+.typing-indicator {
+  display: flex;
+  align-items: center;
+  gap: 8rpx;
+  font-size: 30rpx;
+  color: #999;
+}
+
+.dot {
+  animation: typing 1.4s infinite;
+}
+
+.dot:nth-child(2) {
+  animation-delay: 0.2s;
+}
+
+.dot:nth-child(3) {
+  animation-delay: 0.4s;
+}
+
+@keyframes typing {
+  0%, 60%, 100% {
+    opacity: 0.3;
+  }
+  30% {
+    opacity: 1;
+  }
+}
+
+/* 输入栏 */
+.input-bar {
+  display: flex;
+  align-items: center;
+  padding: 20rpx 30rpx;
+  background: #fff;
+  border-top: 1rpx solid #eee;
+}
+
+.input-box {
+  flex: 1;
+  padding: 20rpx 24rpx;
+  background: #f5f5f5;
+  border-radius: 50rpx;
+  font-size: 30rpx;
+  margin-right: 20rpx;
+}
+
+.send-btn {
+  padding: 20rpx 40rpx;
+  background: #07c160;
+  color: #fff;
+  border-radius: 50rpx;
+  font-size: 30rpx;
+  font-weight: bold;
+}

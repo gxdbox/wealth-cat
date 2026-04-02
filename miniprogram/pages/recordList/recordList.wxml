@@ -1,0 +1,42 @@
+<view class="container">
+  <!-- 统计卡片 -->
+  <view class="statistics-card">
+    <view class="stat-item">
+      <text class="stat-label">支出</text>
+      <text class="stat-amount expense">￥{{totalExpense}}</text>
+    </view>
+    <view class="stat-divider"></view>
+    <view class="stat-item">
+      <text class="stat-label">收入</text>
+      <text class="stat-amount income">￥{{totalIncome}}</text>
+    </view>
+    <view class="stat-divider"></view>
+    <view class="stat-item">
+      <text class="stat-label">结余</text>
+      <text class="stat-amount {{balance >= 0 ? 'income' : 'expense'}}">￥{{balance}}</text>
+    </view>
+  </view>
+
+  <!-- 账单列表 -->
+  <view class="record-list">
+    <view wx:for="{{records}}" wx:key="_id" class="record-item">
+      <view class="record-icon">{{getCategoryIcon(item.category)}}</view>
+      <view class="record-info">
+        <view class="record-note">{{item.note || getCategoryName(item.category)}}</view>
+        <view class="record-date">{{formatDate(item.date)}}</view>
+      </view>
+      <view class="record-amount {{item.type === 'expense' ? 'expense' : 'income'}}">
+        {{item.type === 'expense' ? '-' : '+'}}￥{{item.amount}}
+      </view>
+    </view>
+
+    <!-- 空状态 -->
+    <view wx:if="{{records.length === 0}}" class="empty-state">
+      <text class="empty-icon">📝</text>
+      <text class="empty-text">还没有账单记录</text>
+      <button class="empty-btn" bindtap="goAccount">去记账</button>
+    </view>
+  </view>
+</view>
+
+<view class="floating-btn" bindtap="goAccount">+</view>

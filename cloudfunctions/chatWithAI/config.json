@@ -1,0 +1,8 @@
+{
+  "permissions": {
+    "openapi": []
+  },
+  "timeout": 30,
+  "envVariables": {},
+  "memory": 512
+}

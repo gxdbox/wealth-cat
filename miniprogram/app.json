@@ -1,0 +1,64 @@
+{
+  "pages": [
+    "pages/account/account",
+    "pages/recordList/recordList",
+    "pages/aiChat/aiChat",
+    "pages/family/family",
+    "pages/profile/profile",
+    "pages/cloudTest/cloudTest",
+    "pages/index/index",
+    "pages/chatBot/chatBot",
+    "pages/foodBuy/foodBuy"
+  ],
+  "tabBar": {
+    "color": "#999999",
+    "selectedColor": "#07c160",
+    "backgroundColor": "#ffffff",
+    "borderStyle": "black",
+    "list": [
+      {
+        "pagePath": "pages/account/account",
+        "text": "记账"
+      },
+      {
+        "pagePath": "pages/recordList/recordList",
+        "text": "账单"
+      },
+      {
+        "pagePath": "pages/family/family",
+        "text": "家庭"
+      },
+      {
+        "pagePath": "pages/aiChat/aiChat",
+        "text": "AI"
+      },
+      {
+        "pagePath": "pages/profile/profile",
+        "text": "我的"
+      }
+    ]
+  },
+  "usingComponents": {
+    "custom-map": "/components/toolCard/map/index",
+    "custom-weather": "/components/toolCard/weather/index",
+    "custom-food-list": "/components/toolCard/food-list/index",
+    "custom-business-list": "/components/toolCard/business-list/index"
+  },
+  "window": {
+    "navigationBarBackgroundColor": "#ffffff",
+    "navigationBarTextStyle": "black",
+    "navigationBarTitleText": "我的记账本",
+    "backgroundColor": "#eeeeee",
+    "backgroundTextStyle": "light",
+    "enablePullDownRefresh": true
+  },
+  "sitemapLocation": "sitemap.json",
+  "style": "v2",
+  "lazyCodeLoading": "requiredComponents",
+  "networkTimeout": {
+    "request": 300000,
+    "connectSocket": 60000,
+    "uploadFile": 60000,
+    "downloadFile": 60000
+  }
+}
