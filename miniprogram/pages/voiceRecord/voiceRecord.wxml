@@ -4,6 +4,7 @@
     <view class="voice-icon">{{isRecording ? '🎤' : '🎙️'}}</view>
     <text class="voice-status">{{isRecording ? '正在录音...' : '点击按钮开始说话'}}</text>
     <text class="voice-hint">例："今天早上买咖啡花了 35 元"</text>
+  <text wx:if="{{recognizeResult}}" class="voice-hint-success">✓ {{recognizeResult}}</text>
   </view>
 
   <!-- 录音按钮 -->
