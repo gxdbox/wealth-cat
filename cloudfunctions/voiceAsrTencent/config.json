@@ -1,0 +1,12 @@
+{
+  "permissions": {
+    "openapi": []
+  },
+  "timeout": 60,
+  "memory": 512,
+  "envVariables": {
+    "SECRETID": "在这里填写你的 SecretId",
+    "SECRETKEY": "在这里填写你的 SecretKey",
+    "REGION": "ap-guangzhou"
+  }
+}

@@ -26,7 +26,7 @@ exports.main = async (event, context) => {
     console.log('AI 解析结果:', parseResult)
     
     // 如果解析成功，保存到数据库
-    if (parseResult.success && parseResult.amount) {
+    if (parseResult && parseResult.amount) {
       const recordData = {
         type: parseResult.type || 'expense',
         amount: parseFloat(parseResult.amount),

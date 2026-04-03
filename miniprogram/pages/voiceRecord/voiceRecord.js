@@ -53,7 +53,7 @@ Page({
 
   // 录音结束处理
   handleRecordEnd: async function(filePath) {
-    wx.showLoading({ title: '识别中...' })
+    this.setData({ loading: true })
 
     try {
       // 上传录音文件到云存储
@@ -62,21 +62,40 @@ Page({
         filePath: filePath
       })
 
-      // TODO: 这里需要接入语音识别 API
-      // 目前微信语音识别需要企业资质，个人小程序可用第三方服务
-      // 暂时用手动输入替代
+      console.log('文件上传成功，fileID:', uploadRes.fileID)
 
-      wx.hideLoading()
-      wx.showModal({
-        title: '提示',
-        content: '语音识别功能需要接入第三方服务（如讯飞、百度）。目前请先使用手动输入功能，或者在 AI 助手页面用文字描述。',
-        showCancel: false
+      // 调用腾讯云语音识别云函数
+      const asrRes = await wx.cloud.callFunction({
+        name: 'voiceAsrTencent',
+        data: {
+          fileID: uploadRes.fileID
+        }
       })
+
+      if (asrRes.result && asrRes.result.success) {
+        const voiceText = asrRes.result.voiceText
+        console.log('识别文字:', voiceText)
+
+        // 显示识别结果
+        this.setData({
+          recognizeResult: `识别结果：${voiceText}`,
+          manualText: voiceText
+        })
+
+        // 自动提交到 AI 解析
+        await this.submitToAI(voiceText)
+      } else {
+        wx.showToast({ 
+          title: asrRes.result?.errorMsg || '识别失败', 
+          icon: 'none' 
+        })
+      }
 
     } catch (err) {
       console.error(err)
-      wx.hideLoading()
       wx.showToast({ title: '识别失败', icon: 'none' })
+    } finally {
+      this.setData({ loading: false })
     }
   },
 
@@ -91,7 +110,11 @@ Page({
       wx.showToast({ title: '请输入内容', icon: 'none' })
       return
     }
+    this.submitToAI(this.data.manualText)
+  },
 
+  // 提交到 AI 解析
+  submitToAI: async function(text) {
     this.setData({ loading: true })
 
     try {
@@ -102,7 +125,7 @@ Page({
       const res = await wx.cloud.callFunction({
         name: 'voiceToRecord',
         data: {
-          voiceText: this.data.manualText,
+          voiceText: text,
           nickname: userInfo ? userInfo.nickName : '用户'
         }
       })
