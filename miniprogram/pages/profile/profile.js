@@ -17,6 +17,12 @@ Page({
     
     if (userInfo && openid) {
       this.setData({ userInfo, openid })
+    }
+  },
+
+  onShow: function() {
+    // 每次显示页面时刷新统计数据
+    if (wx.getStorageSync('openid')) {
       this.getStatistics()
     }
   },
