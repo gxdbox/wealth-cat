@@ -4,7 +4,6 @@
     "pages/voiceRecord/voiceRecord",
     "pages/recordList/recordList",
     "pages/aiChat/aiChat",
-    "pages/family/family",
     "pages/profile/profile"
   ],
   "tabBar": {
@@ -20,10 +19,6 @@
       {
         "pagePath": "pages/recordList/recordList",
         "text": "账单"
-      },
-      {
-        "pagePath": "pages/family/family",
-        "text": "家庭"
       },
       {
         "pagePath": "pages/aiChat/aiChat",

@@ -61,15 +61,6 @@
     </view>
   </view>
 
-  <!-- 家庭账本开关 -->
-  <view wx:if="{{hasFamily}}" class="input-section">
-    <text class="input-label">保存到家庭账本</text>
-    <view class="switch-box">
-      <text class="switch-text">计入家庭共同账本</text>
-      <switch checked="{{saveToFamily}}" bindchange="toggleFamily" color="#07c160" />
-    </view>
-  </view>
-
   <!-- 提交按钮 -->
   <button class="submit-btn" bindtap="submitRecord">记一笔</button>
 </view>

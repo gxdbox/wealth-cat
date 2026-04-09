@@ -6,8 +6,6 @@ Page({
     category: 'food',
     date: '',
     remindEnabled: false,
-    saveToFamily: false,
-    hasFamily: false,
     expenseCategories: [
       { id: 'food', name: '餐饮', icon: '🍜' },
       { id: 'transport', name: '交通', icon: '🚗' },
@@ -34,30 +32,6 @@ Page({
     // 读取提醒设置
     const remindEnabled = wx.getStorageSync('remindEnabled') || false
     this.setData({ remindEnabled })
-    
-    // 检查是否加入家庭
-    this.checkFamily()
-  },
-  
-  onShow: function() {
-    this.checkFamily()
-  },
-  
-  // 检查家庭状态
-  checkFamily: async function() {
-    try {
-      const res = await wx.cloud.callFunction({
-        name: 'getFamilyData'
-      })
-      if (res.result.success && res.result.hasFamily) {
-        this.setData({
-          hasFamily: true,
-          familyId: res.result.family.familyId
-        })
-      }
-    } catch (err) {
-      console.error(err)
-    }
   },
 
   // 跳转到语音记账
@@ -118,11 +92,6 @@ Page({
     }
   },
 
-  // 切换家庭账本开关
-  toggleFamily: function(e) {
-    this.setData({ saveToFamily: e.detail.value })
-  },
-
   // 提交记录
   submitRecord: async function() {
     // 验证输入
@@ -151,11 +120,6 @@ Page({
         createTime: db.serverDate(),
         openid,
         nickname: userInfo ? userInfo.nickName : '匿名'
-      }
-      
-      // 如果加入了家庭且选择保存到家庭，添加 familyId
-      if (this.data.saveToFamily && this.data.hasFamily) {
-        recordData.familyId = this.data.familyId
       }
       
       await db.collection('records').add({
