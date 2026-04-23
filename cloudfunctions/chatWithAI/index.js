@@ -8,8 +8,8 @@ cloud.init({
 
 const db = cloud.database()
 
-// DeepSeek API 配置
-const DEEPSEEK_API_KEY = 'sk-2cea34be614c4d50b54a95471b0c00f0'
+// DeepSeek API 配置 - 从环境变量读取
+const DEEPSEEK_API_KEY = process.env.DEEPSEEK_API_KEY || 'sk-2cea34be614c4d50b54a95471b0c00f0'
 const DEEPSEEK_API_URL = 'https://api.deepseek.com/v1/chat/completions'
 
 // 云函数入口函数

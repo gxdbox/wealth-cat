@@ -8,10 +8,10 @@ cloud.init({
 
 const AsrClient = tencentcloud.asr.v20190614.Client
 
-// 腾讯云配置（从环境变量读取，更安全）
-const SECRETID = process.env.SECRETID
-const SECRETKEY = process.env.SECRETKEY
-const REGION = process.env.REGION || 'ap-guangzhou'  // 默认广州
+// 腾讯云配置
+const SECRETID = 'REMOVED_ID'
+const SECRETKEY = 'REMOVED_KEY'
+const REGION = 'ap-guangzhou'  // 广州
 
 // 云函数入口函数
 exports.main = async (event, context) => {
@@ -19,18 +19,8 @@ exports.main = async (event, context) => {
   const { fileID } = event
   
   console.log('=== 开始语音识别 ===')
-  console.log('环境变量检查:')
-  console.log('SECRETID:', SECRETID ? '已配置' : '未配置')
-  console.log('SECRETKEY:', SECRETKEY ? '已配置' : '未配置')
   console.log('REGION:', REGION)
   console.log('fileID:', fileID)
-  
-  if (!SECRETID || !SECRETKEY) {
-    return {
-      success: false,
-      errorMsg: '腾讯云密钥未配置，请在云函数配置中添加环境变量 SECRETID 和 SECRETKEY'
-    }
-  }
   
   try {
     console.log('开始从云存储下载文件...')
