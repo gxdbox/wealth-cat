@@ -9,8 +9,8 @@ cloud.init({
 const AsrClient = tencentcloud.asr.v20190614.Client
 
 // 腾讯云配置
-const SECRETID = 'REMOVED_ID'
-const SECRETKEY = 'REMOVED_KEY'
+const SECRETID = 'REMOVED_SECRET_ID'
+const SECRETKEY = 'REMOVED_SECRET_KEY'
 const REGION = 'ap-guangzhou'  // 广州
 
 // 云函数入口函数
