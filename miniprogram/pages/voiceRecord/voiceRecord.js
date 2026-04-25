@@ -54,15 +54,18 @@ Page({
   // 录音结束处理
   handleRecordEnd: async function(filePath) {
     this.setData({ loading: true })
+    console.log('=== 开始处理录音 ===')
 
     try {
       // 上传录音文件到云存储
+      console.log('步骤 1: 开始上传文件到云存储...')
       const uploadRes = await wx.cloud.uploadFile({
         cloudPath: 'voice/' + Date.now() + '.mp3',
         filePath: filePath
       })
 
       console.log('文件上传成功，fileID:', uploadRes.fileID)
+      console.log('步骤 2: 开始调用语音识别云函数...')
 
       // 调用腾讯云语音识别云函数
       const asrRes = await wx.cloud.callFunction({
@@ -71,6 +74,8 @@ Page({
           fileID: uploadRes.fileID
         }
       })
+
+      console.log('云函数返回:', asrRes)
 
       if (asrRes.result && asrRes.result.success) {
         const voiceText = asrRes.result.voiceText
@@ -92,7 +97,7 @@ Page({
       }
 
     } catch (err) {
-      console.error(err)
+      console.error('处理录音失败:', err)
       wx.showToast({ title: '识别失败', icon: 'none' })
     } finally {
       this.setData({ loading: false })
