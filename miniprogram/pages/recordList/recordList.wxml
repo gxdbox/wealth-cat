@@ -34,9 +34,9 @@
     <view wx:if="{{records.length === 0}}" class="empty-state">
       <text class="empty-icon">📝</text>
       <text class="empty-text">还没有账单记录</text>
-      <button class="empty-btn" bindtap="goAccount">去记账</button>
+      <button class="empty-btn" bindtap="goVoiceRecord">去记账</button>
     </view>
   </view>
 </view>
 
-<view class="floating-btn" bindtap="goAccount">+</view>
+<view class="floating-btn" bindtap="goVoiceRecord">+</view>

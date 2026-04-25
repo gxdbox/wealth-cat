@@ -1,8 +1,7 @@
 {
   "pages": [
-    "pages/account/account",
-    "pages/voiceRecord/voiceRecord",
     "pages/recordList/recordList",
+    "pages/voiceRecord/voiceRecord",
     "pages/aiChat/aiChat",
     "pages/profile/profile"
   ],
@@ -12,10 +11,6 @@
     "backgroundColor": "#ffffff",
     "borderStyle": "black",
     "list": [
-      {
-        "pagePath": "pages/account/account",
-        "text": "记账"
-      },
       {
         "pagePath": "pages/recordList/recordList",
         "text": "账单"

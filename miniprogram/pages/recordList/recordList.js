@@ -101,10 +101,10 @@ Page({
     return `${month}-${day}`
   },
 
-  // 跳转到记账页
-  goAccount: function() {
-    wx.switchTab({
-      url: '/pages/account/account'
+  // 跳转到语音记账页
+  goVoiceRecord: function() {
+    wx.navigateTo({
+      url: '/pages/voiceRecord/voiceRecord'
     })
   }
 })
