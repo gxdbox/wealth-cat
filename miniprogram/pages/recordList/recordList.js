@@ -1,9 +1,8 @@
 Page({
   data: {
-    records: [],
-    totalExpense: 0,
-    totalIncome: 0,
-    balance: 0
+    todayRecords: [],
+    pastRecords: [],
+    todayWeek: ''
   },
 
   onShow: function() {
@@ -19,25 +18,33 @@ Page({
 
     try {
       const db = wx.cloud.database()
-      const res = await db.collection('records').orderBy('date', 'desc').get()
+      const res = await db.collection('records').orderBy('createTime', 'desc').get()
       const records = res.data
-      
-      let totalExpense = 0
-      let totalIncome = 0
-      
+
+      const todayStart = new Date()
+      todayStart.setHours(0, 0, 0, 0)
+
+      const todayRecords = []
+      const pastRecords = []
+
       records.forEach(record => {
-        if (record.type === 'expense') {
-          totalExpense += record.amount
+        const createTime = record.createTime ? new Date(record.createTime) : new Date()
+        const processedRecord = this.processRecord(record, createTime)
+
+        if (createTime >= todayStart) {
+          todayRecords.push(processedRecord)
         } else {
-          totalIncome += record.amount
+          pastRecords.push(processedRecord)
         }
       })
 
+      const weekDays = ['周日', '周一', '周二', '周三', '周四', '周五', '周六']
+      const todayWeek = weekDays[new Date().getDay()]
+
       this.setData({
-        records,
-        totalExpense: totalExpense.toFixed(2),
-        totalIncome: totalIncome.toFixed(2),
-        balance: (totalIncome - totalExpense).toFixed(2)
+        todayRecords,
+        pastRecords,
+        todayWeek
       })
     } catch (err) {
       wx.showToast({ title: '加载失败', icon: 'none' })
@@ -46,14 +53,38 @@ Page({
     }
   },
 
-  getCategoryIcon: function(category) {
-    const icons = {
-      food: '🍜', transport: '🚗', shopping: '🛍',
-      entertainment: '🎬', health: '💊', education: '📚',
-      life: '🏠', salary: '💰', bonus: '🎁',
-      investment: '📈', parttime: '💼', other: '📦'
+  processRecord: function(record, createTime) {
+    const category = record.category || 'other'
+    const iconMap = this.getCategoryIconMap(category)
+    const timeStr = this.formatTime(createTime)
+    const amountDisplay = this.formatAmount(record.amount)
+
+    return {
+      ...record,
+      iconUrl: iconMap.url,
+      iconBg: iconMap.bg,
+      categoryName: this.getCategoryName(category),
+      time: timeStr,
+      amountDisplay: amountDisplay
     }
-    return icons[category] || '📦'
+  },
+
+  getCategoryIconMap: function(category) {
+    const iconMap = {
+      food: { url: '/images/icons/food.png', bg: '#ff9f43' },
+      transport: { url: '/images/icons/car.png', bg: '#07c160' },
+      shopping: { url: '/images/icons/shop.png', bg: '#8b5cf6' },
+      entertainment: { url: '/images/icons/entertainment.png', bg: '#f43f5e' },
+      health: { url: '/images/icons/health.png', bg: '#06b6d4' },
+      education: { url: '/images/icons/education.png', bg: '#3b82f6' },
+      life: { url: '/images/icons/life.png', bg: '#a855f7' },
+      salary: { url: '/images/icons/salary.png', bg: '#07c160' },
+      bonus: { url: '/images/icons/bonus.png', bg: '#f59e0b' },
+      investment: { url: '/images/icons/investment.png', bg: '#10b981' },
+      parttime: { url: '/images/icons/parttime.png', bg: '#6366f1' },
+      other: { url: '/images/icons/other.png', bg: '#6b7280' }
+    }
+    return iconMap[category] || iconMap.other
   },
 
   getCategoryName: function(category) {
@@ -66,15 +97,23 @@ Page({
     return names[category] || '其他'
   },
 
-  formatDate: function(date) {
-    if (!date) return ''
-    const d = new Date(date)
-    const month = (d.getMonth() + 1).toString().padStart(2, '0')
-    const day = d.getDate().toString().padStart(2, '0')
-    return `${month}-${day}`
+  formatTime: function(date) {
+    const hours = date.getHours().toString().padStart(2, '0')
+    const minutes = date.getMinutes().toString().padStart(2, '0')
+    return `${hours}:${minutes}`
+  },
+
+  formatAmount: function(amount) {
+    if (!amount) return '0.00'
+    return parseFloat(amount).toFixed(2)
   },
 
   goVoiceRecord: function() {
     wx.navigateTo({ url: '/pages/voiceRecord/voiceRecord' })
+  },
+
+  onRecordTap: function(e) {
+    const id = e.currentTarget.dataset.id
+    wx.navigateTo({ url: `/pages/recordDetail/recordDetail?id=${id}` })
   }
 })

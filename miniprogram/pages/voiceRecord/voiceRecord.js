@@ -96,10 +96,15 @@ Page({
       })
 
       if (res.result?.success) {
-        wx.showToast({ title: '记账成功', icon: 'success' })
-        setTimeout(() => {
-          wx.switchTab({ url: '/pages/recordList/recordList' })
-        }, 1000)
+        const result = res.result
+        wx.showModal({
+          title: '记账成功',
+          content: `已创建 ${result.count} 条账单\n支出：${result.totalExpense} 元\n收入：${result.totalIncome} 元`,
+          showCancel: false,
+          success: () => {
+            wx.switchTab({ url: '/pages/recordList/recordList' })
+          }
+        })
       } else {
         wx.showToast({ title: res.result?.errorMsg || '解析失败', icon: 'none' })
       }

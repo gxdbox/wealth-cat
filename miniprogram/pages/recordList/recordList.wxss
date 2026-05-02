@@ -1,98 +1,107 @@
 .container {
-  padding: 30rpx;
+  padding: 0;
   padding-bottom: 120rpx;
   background: #f5f5f5;
   min-height: 100vh;
 }
 
-/* 统计卡片 */
-.statistics-card {
-  background: linear-gradient(135deg, #07c160 0%, #10b981 100%);
-  border-radius: 20rpx;
-  padding: 40rpx 30rpx;
+.record-list {
+  padding: 0 30rpx;
+}
+
+/* 日期分组 */
+.date-group {
+  margin-bottom: 40rpx;
+}
+
+.date-header {
   display: flex;
-  justify-content: space-between;
-  margin-bottom: 30rpx;
-  color: #fff;
+  align-items: baseline;
+  padding: 30rpx 0 20rpx;
 }
 
-.stat-item {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  flex: 1;
-}
-
-.stat-label {
-  font-size: 24rpx;
-  opacity: 0.9;
-  margin-bottom: 10rpx;
-}
-
-.stat-amount {
+.date-title {
   font-size: 36rpx;
   font-weight: bold;
+  color: #333;
+  margin-right: 16rpx;
 }
 
-.stat-amount.expense {
-  color: #ffcccc;
+.date-week {
+  font-size: 24rpx;
+  color: #999;
 }
 
-.stat-amount.income {
-  color: #fff;
-}
-
-.stat-divider {
-  width: 1rpx;
-  background: rgba(255,255,255,0.3);
-  margin: 0 20rpx;
-}
-
-/* 账单列表 */
-.record-list {
-  background: #fff;
-  border-radius: 16rpx;
-  overflow: hidden;
-}
-
+/* 账单卡片 */
 .record-item {
   display: flex;
   align-items: center;
-  padding: 30rpx;
-  border-bottom: 1rpx solid #f0f0f0;
+  padding: 24rpx 0;
+  border-bottom: 1rpx solid #e5e5e5;
 }
 
 .record-item:last-child {
   border-bottom: none;
 }
 
-.record-icon {
-  font-size: 48rpx;
-  margin-right: 20rpx;
+.record-item:active {
+  opacity: 0.7;
 }
 
+/* 图标 */
+.record-icon-wrap {
+  width: 72rpx;
+  height: 72rpx;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 20rpx;
+  flex-shrink: 0;
+}
+
+.record-icon {
+  width: 40rpx;
+  height: 40rpx;
+}
+
+/* 信息区 */
 .record-info {
   flex: 1;
+  min-width: 0;
 }
 
-.record-note {
-  font-size: 32rpx;
+.record-category {
+  font-size: 30rpx;
+  font-weight: bold;
   color: #333;
   margin-bottom: 8rpx;
 }
 
-.record-date {
+.record-note {
   font-size: 24rpx;
   color: #999;
+  margin-bottom: 6rpx;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
+.record-meta {
+  font-size: 22rpx;
+  color: #666;
+}
+
+/* 金额 */
 .record-amount {
   font-size: 32rpx;
   font-weight: bold;
+  margin-left: 20rpx;
+  flex-shrink: 0;
 }
 
 .record-amount.expense {
-  color: #f56c6c;
+  color: #07c160;
 }
 
 .record-amount.income {
@@ -104,7 +113,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 100rpx 0;
+  padding: 200rpx 0;
 }
 
 .empty-icon {
@@ -123,6 +132,7 @@
   color: #fff;
   padding: 20rpx 60rpx;
   border-radius: 50rpx;
+  font-size: 28rpx;
 }
 
 /* 浮动按钮 */

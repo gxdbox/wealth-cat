@@ -1,6 +1,7 @@
 {
   "pages": [
     "pages/recordList/recordList",
+    "pages/recordDetail/recordDetail",
     "pages/voiceRecord/voiceRecord",
     "pages/aiChat/aiChat",
     "pages/profile/profile"

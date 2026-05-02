@@ -1,0 +1,78 @@
+<view class="container">
+  <view wx:if="{{record}}">
+    <!-- 编辑表单 -->
+    <view class="edit-card">
+      <view class="edit-header">
+        <view class="type-tag {{record.type === 'expense' ? 'expense' : 'income'}}">
+          {{record.type === 'expense' ? '支出' : '收入'}}
+        </view>
+        <view class="amount-display">
+          <text class="amount-sign">{{record.type === 'expense' ? '-' : '+'}}</text>
+          <text class="amount-value">￥{{record.amount}}</text>
+        </view>
+      </view>
+
+      <view class="edit-body">
+        <!-- 类型选择 -->
+        <view class="form-row">
+          <text class="form-label">类型</text>
+          <view class="type-selector">
+            <view class="type-option {{record.type === 'expense' ? 'active' : ''}}"
+                  bindtap="onTypeChange" data-type="expense">支出</view>
+            <view class="type-option {{record.type === 'income' ? 'active' : ''}}"
+                  bindtap="onTypeChange" data-type="income">收入</view>
+          </view>
+        </view>
+
+        <!-- 金额输入 -->
+        <view class="form-row">
+          <text class="form-label">金额</text>
+          <input class="form-input" type="digit" value="{{record.amount}}"
+                 bindinput="onAmountInput" placeholder="请输入金额" />
+        </view>
+
+        <!-- 分类选择 -->
+        <view class="form-row">
+          <text class="form-label">分类</text>
+          <picker mode="selector" range="{{categoryOptions}}" range-key="name"
+                  value="{{categoryIndex}}" bindchange="onCategoryChange">
+            <view class="form-picker">
+              {{categoryOptions[categoryIndex].icon}} {{categoryOptions[categoryIndex].name}}
+            </view>
+          </picker>
+        </view>
+
+        <!-- 备注输入 -->
+        <view class="form-row">
+          <text class="form-label">备注</text>
+          <input class="form-input" value="{{record.note}}"
+                 bindinput="onNoteInput" placeholder="请输入备注" />
+        </view>
+
+        <!-- 日期选择 -->
+        <view class="form-row">
+          <text class="form-label">日期</text>
+          <picker mode="date" value="{{record.date}}"
+                  bindchange="onDateChange">
+            <view class="form-picker">{{record.date}}</view>
+          </picker>
+        </view>
+
+        <view class="form-row" wx:if="{{record.fromVoice}}">
+          <text class="form-label">来源</text>
+          <text class="row-value voice-tag">语音记账</text>
+        </view>
+      </view>
+
+      <view class="action-buttons">
+        <button class="save-btn" bindtap="onSave">保存</button>
+        <button class="delete-btn" bindtap="onDelete">删除</button>
+      </view>
+    </view>
+  </view>
+
+  <!-- 加载状态 -->
+  <view wx:if="{{!record}}" class="loading-state">
+    <text>加载中...</text>
+  </view>
+</view>
